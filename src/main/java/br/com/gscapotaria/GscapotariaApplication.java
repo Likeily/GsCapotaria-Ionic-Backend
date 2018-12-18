@@ -9,10 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import br.com.gscapotaria.domain.Categoria;
 import br.com.gscapotaria.domain.Cidade;
+import br.com.gscapotaria.domain.Cliente;
+import br.com.gscapotaria.domain.Endereco;
 import br.com.gscapotaria.domain.Estado;
 import br.com.gscapotaria.domain.Produto;
+import br.com.gscapotaria.domain.enums.TipoCliente;
 import br.com.gscapotaria.repositories.CategoriaRepository;
 import br.com.gscapotaria.repositories.CidadeRepository;
+import br.com.gscapotaria.repositories.ClienteRepository;
+import br.com.gscapotaria.repositories.EnderecoRepository;
 import br.com.gscapotaria.repositories.EstadoRepository;
 import br.com.gscapotaria.repositories.ProdutoRepository;
 
@@ -27,6 +32,10 @@ public class GscapotariaApplication implements CommandLineRunner{
 	private CidadeRepository cidadeRepository;
 	@Autowired
 	private EstadoRepository estadoRepository;
+	@Autowired
+	private ClienteRepository clienteRepository;
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(GscapotariaApplication.class, args);
@@ -67,6 +76,17 @@ public class GscapotariaApplication implements CommandLineRunner{
 		estadoRepository.saveAll(Arrays.asList(est1, est2));
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3, c4, c5));
 		
+		Cliente cli1 = new Cliente(null, "Likaele Medeiros", "likaelemedeiros@gmail.com", "00100100100", TipoCliente.PESSOAFISICA);
+		
+		cli1.getTelefones().addAll(Arrays.asList("997824757", "999898989"));
+	
+		Endereco e1 = new Endereco(null, "Rua Joao Alfredo", "31", "", "Sitio Novo", "34261830", cli1, c1);
+		Endereco e2 = new Endereco(null, "Rua Joao Negrao", "200", "", "Santo Amaro", "34261830", cli1, c2);
+		
+		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+		
+		clienteRepository.saveAll(Arrays.asList(cli1));
+		enderecoRepository.saveAll(Arrays.asList(e1, e2));
 	}
 
 }
