@@ -3,10 +3,6 @@ package br.com.gscapotaria.domain;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -22,7 +18,6 @@ public abstract class Pagamento implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private Integer estado;
 
@@ -49,7 +44,6 @@ public abstract class Pagamento implements Serializable {
 		this.id = id;
 	}
 
-	@Enumerated(EnumType.STRING)
 	public EstadoPagamento getEstado() {
 		return EstadoPagamento.toEnum(estado);
 	}
