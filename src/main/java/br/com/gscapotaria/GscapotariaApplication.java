@@ -13,6 +13,7 @@ import br.com.gscapotaria.domain.Cidade;
 import br.com.gscapotaria.domain.Cliente;
 import br.com.gscapotaria.domain.Endereco;
 import br.com.gscapotaria.domain.Estado;
+import br.com.gscapotaria.domain.ItemPedido;
 import br.com.gscapotaria.domain.Pagamento;
 import br.com.gscapotaria.domain.PagamentoComBoleto;
 import br.com.gscapotaria.domain.PagamentoComCartao;
@@ -25,6 +26,7 @@ import br.com.gscapotaria.repositories.CidadeRepository;
 import br.com.gscapotaria.repositories.ClienteRepository;
 import br.com.gscapotaria.repositories.EnderecoRepository;
 import br.com.gscapotaria.repositories.EstadoRepository;
+import br.com.gscapotaria.repositories.ItemPedidoRepository;
 import br.com.gscapotaria.repositories.PagamentoRepository;
 import br.com.gscapotaria.repositories.PedidoRepository;
 import br.com.gscapotaria.repositories.ProdutoRepository;
@@ -48,6 +50,8 @@ public class GscapotariaApplication implements CommandLineRunner {
 	private PedidoRepository pedidoRepository;
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 
 	
 	public static void main(String[] args) {
@@ -118,5 +122,19 @@ public class GscapotariaApplication implements CommandLineRunner {
 		
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
+	
+	
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 540.00 );
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 200.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 0.00, 1, 600.00);
+		
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+		
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+		
+		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
 	}
 }
