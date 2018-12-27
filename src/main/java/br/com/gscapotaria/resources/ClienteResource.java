@@ -7,22 +7,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.gscapotaria.domain.Pedido;
-import br.com.gscapotaria.services.PedidoService;
+import br.com.gscapotaria.domain.Cliente;
+import br.com.gscapotaria.services.ClienteService;
 
 @RestController
-@RequestMapping(value="/pedidos")
-public class PedidoResources {
+@RequestMapping(value="/clientes")
+public class ClienteResource {
 
 	@Autowired
-	private PedidoService service;
+	private ClienteService service;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
-		Pedido obj = service.buscar(id);
+		Cliente obj = service.buscar(id);
 		return ResponseEntity.ok().body(obj);
 		
-	//	return "Rest está funcionando";
 	}
 	
 }
